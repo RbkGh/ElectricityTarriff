@@ -1,23 +1,37 @@
 apply plugin: 'java'
+apply plugin: 'idea'
 
 
 sourceCompatibility = 1.7
+targetCompatibility = 1.7
 version = '1.0'
-
 jar{
+    baseName='ecgtarriffcalculatorLib'
 
 }
 
-sourceSets {
-    main {
-        java {
-            srcDir 'src'
-        }
-        resources {
-            srcDir 'src/resources'
-        }
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version
+
     }
+    // baseName = project.name + '-all'
+    baseName='ecgtarriffcalculatorLib'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
+
+//sourceSets {
+//    main {
+//        java {
+//            srcDir 'src'
+//        }
+////        resources {
+////            srcDir 'src/resources'
+////        }
+//    }
+//}
 
 repositories {
     mavenCentral()
@@ -25,6 +39,9 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile 'org.apache.poi:poi:3.8'
+    compile fileTree(dir: 'src/resources', include: ['*.xlsx'])
+    compile 'org.apache.poi:poi:3.13'
+    compile 'org.apache.poi:poi-ooxml:3.13'
+
 
 }
