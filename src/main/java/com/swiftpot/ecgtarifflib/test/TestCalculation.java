@@ -18,9 +18,9 @@ public class TestCalculation {
 
 
         ApplianceItem applianceItem = new ApplianceItem();
-        applianceItem.setApplianceQty(67);
+        applianceItem.setApplianceQty(93);
         applianceItem.setApplianceHours(24);
-        applianceItem.setApplianceWatts(45);
+        applianceItem.setApplianceWatts(10);
 
         List<ApplianceItem> applianceItemList = new ArrayList<ApplianceItem>(0);
         applianceItemList.add(applianceItem);

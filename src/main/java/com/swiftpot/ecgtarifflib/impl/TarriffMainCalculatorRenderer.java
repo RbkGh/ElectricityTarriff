@@ -107,71 +107,84 @@ public class TarriffMainCalculatorRenderer /*implements TarriffMainCalculator*/{
 
             Workbook workbook = WorkbookFactory.create(file);
 
-            //Iterator<Sheet> sheets = workbook.sheetIterator();
-
+            boolean foundGovtSubsidyAndTotalCost = false;
+            for(int i =0; i <= HIGHEST_DIFFERENCE ; i++) {
+                double totalUnitsForAllApplianceItemsInListTOSEARCHNOW = totalUnitsForAllApplianceItemsInList + i;
             for(Sheet currentSheet : workbook){
+                if(foundGovtSubsidyAndTotalCost){
+                    return;//get out of loop since found
+                }
                 for(Row row : currentSheet){
-                    for(Cell cell : row){
-//if(row.getCell(0).get){}
+                    for(Cell cell : row) {
+
+
                         switch (cell.getCellType()) {
                             case Cell.CELL_TYPE_STRING:
 
-                               try {
-                                   System.out.println("cell at 0 position is =  "+row.getCell(0).getRichStringCellValue().getString());
-                                   System.out.println("cell at 8 position is  ="+row.getCell(8).getRichStringCellValue().getString());
-                                   System.out.println("cell at 9 position is ="+row.getCell(9).getRichStringCellValue().getString());
-                                   if(row.getCell(0).getRichStringCellValue().getString().equals(String.valueOf(totalUnitsForAllApplianceItemsInList))){
-                                       System.out.println("Match Found");
-                                       this.FINAL_GOVT_SUBSIDY_AMOUNT = row.getCell(8).getRichStringCellValue().getString();
-                                       this.FINAL_TOTAL_COST_AMOUNT = row.getCell(9).getRichStringCellValue().getString();
-                                   }
-                               }catch(IllegalStateException ile){
-                                   System.out.println("cell at 0 position is =  "+row.getCell(0).getNumericCellValue());
-                                   System.out.println("cell at 8 position is  ="+row.getCell(8).getNumericCellValue());
-                                   System.out.println("cell at 9 position is ="+row.getCell(9).getNumericCellValue());
-                                   if(String.valueOf(row.getCell(0).getNumericCellValue()).equals(String.valueOf(totalUnitsForAllApplianceItemsInList))){
-                                       System.out.println("Match Found");
-                                       this.FINAL_GOVT_SUBSIDY_AMOUNT = String.valueOf(row.getCell(8).getNumericCellValue());
-                                       this.FINAL_TOTAL_COST_AMOUNT = String.valueOf(row.getCell(9).getNumericCellValue());
-                                   }
-                               }
+                                try {
+                                    System.out.println("cell at 0 position is =  " + row.getCell(0).getRichStringCellValue().getString());
+                                    System.out.println("cell at 8 position is  =" + row.getCell(8).getRichStringCellValue().getString());
+                                    System.out.println("cell at 9 position is =" + row.getCell(9).getRichStringCellValue().getString());
+                                    if (row.getCell(0).getRichStringCellValue().getString().equals(String.valueOf(totalUnitsForAllApplianceItemsInListTOSEARCHNOW))) {
+                                        System.out.println("Match Found");
+
+                                        this.FINAL_GOVT_SUBSIDY_AMOUNT = row.getCell(8).getRichStringCellValue().getString();
+                                        this.FINAL_TOTAL_COST_AMOUNT = row.getCell(9).getRichStringCellValue().getString();
+                                        foundGovtSubsidyAndTotalCost = true;
+
+                                    }
+                                } catch (IllegalStateException ile) {
+                                    System.out.println("cell at 0 position is =  " + row.getCell(0).getNumericCellValue());
+                                    System.out.println("cell at 8 position is  =" + row.getCell(8).getNumericCellValue());
+                                    System.out.println("cell at 9 position is =" + row.getCell(9).getNumericCellValue());
+                                    if (String.valueOf(row.getCell(0).getNumericCellValue()).equals(String.valueOf(totalUnitsForAllApplianceItemsInListTOSEARCHNOW))) {
+                                        System.out.println("Match Found");
+                                        this.FINAL_GOVT_SUBSIDY_AMOUNT = String.valueOf(row.getCell(8).getNumericCellValue());
+                                        this.FINAL_TOTAL_COST_AMOUNT = String.valueOf(row.getCell(9).getNumericCellValue());
+                                        foundGovtSubsidyAndTotalCost = true;
+                                    }
+                                }
                                 break;
                             case Cell.CELL_TYPE_NUMERIC:
                                 if (DateUtil.isCellDateFormatted(cell)) {
                                     System.out.println(cell.getDateCellValue());
                                 } else {
-                                    System.out.println("cell at 0 position is =  "+row.getCell(0).getNumericCellValue());
-                                    System.out.println("cell at 8 position is  ="+row.getCell(8).getNumericCellValue());
-                                    System.out.println("cell at 9 position is ="+row.getCell(9).getNumericCellValue());
+                                    System.out.println("cell at 0 position is =  " + row.getCell(0).getNumericCellValue());
+                                    System.out.println("cell at 8 position is  =" + row.getCell(8).getNumericCellValue());
+                                    System.out.println("cell at 9 position is =" + row.getCell(9).getNumericCellValue());
                                     System.out.println(cell.getNumericCellValue());
-                                    if(String.valueOf(row.getCell(0).getNumericCellValue()).equals(String.valueOf(totalUnitsForAllApplianceItemsInList))){
+                                    if (String.valueOf(row.getCell(0).getNumericCellValue()).equals(String.valueOf(totalUnitsForAllApplianceItemsInListTOSEARCHNOW))) {
                                         System.out.println("Match Found");
                                         this.FINAL_GOVT_SUBSIDY_AMOUNT = String.valueOf(row.getCell(8).getNumericCellValue());
                                         this.FINAL_TOTAL_COST_AMOUNT = String.valueOf(row.getCell(9).getNumericCellValue());
+                                        foundGovtSubsidyAndTotalCost = true;
                                     }
                                 }
                                 break;
                             case Cell.CELL_TYPE_BOOLEAN:
 
-                                System.out.println("Boolean Value = "+cell.getBooleanCellValue());
+                                System.out.println("Boolean Value = " + cell.getBooleanCellValue());
                                 break;
                             case Cell.CELL_TYPE_FORMULA:
-                                System.out.println("Cell Type Formula = "+cell.getCellFormula());
+                                System.out.println("Cell Type Formula = " + cell.getCellFormula());
                                 break;
                             default:
                                 System.out.println("General String");
-                                System.out.println("cell at 0 position is =  "+row.getCell(0).getStringCellValue());
-                                System.out.println("cell at 8 position is  ="+row.getCell(8).getStringCellValue());
-                                System.out.println("cell at 9 position is ="+row.getCell(9).getStringCellValue());
-                                if(row.getCell(0).getStringCellValue().equals(String.valueOf(totalUnitsForAllApplianceItemsInList))){
+                                System.out.println("cell at 0 position is =  " + row.getCell(0).getStringCellValue());
+                                System.out.println("cell at 8 position is  =" + row.getCell(8).getStringCellValue());
+                                System.out.println("cell at 9 position is =" + row.getCell(9).getStringCellValue());
+                                if (row.getCell(0).getStringCellValue().equals(String.valueOf(totalUnitsForAllApplianceItemsInListTOSEARCHNOW))) {
                                     System.out.println("Match Found");
                                     this.FINAL_GOVT_SUBSIDY_AMOUNT = row.getCell(8).getStringCellValue();
                                     this.FINAL_TOTAL_COST_AMOUNT = row.getCell(9).getStringCellValue();
+                                    foundGovtSubsidyAndTotalCost = true;
                                 }
                         }
-                        //System.out.println("Cell value at position "+row.getCell(cell.getRowIndex())+" = "+cell.getNumericCellValue()+"\n");
+
                     }
-                }
+
+                    }
+                }//close HIGHEST_DIFFERENCE for Loop
             }
 
             //Iterate through each rows from first sheet
