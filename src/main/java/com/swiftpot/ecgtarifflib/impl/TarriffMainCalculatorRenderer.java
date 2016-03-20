@@ -1,12 +1,9 @@
 package com.swiftpot.ecgtarifflib.impl;
 
-import com.swiftpot.ecgtarifflib.interfaces.TarriffMainCalculator;
 import com.swiftpot.ecgtarifflib.model.ApplianceItem;
 import com.swiftpot.ecgtarifflib.model.TarriffCalculationRequestPayload;
 import com.swiftpot.ecgtarifflib.model.TarriffCalculationResponePayload;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.formula.functions.Column;
-import org.apache.poi.ss.formula.functions.Columns;
 import org.apache.poi.ss.usermodel.*;
 
 import java.io.File;
@@ -15,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -92,11 +88,7 @@ public class TarriffMainCalculatorRenderer /*implements TarriffMainCalculator*/{
         return sumOfAllUnits;
     }
 
-    void getTotalGovtSubAndCost(String value,String totalUnitsForAllAplianceItemsInList){
-        if(value == totalUnitsForAllAplianceItemsInList){
 
-        }
-    }
     void findTotalGovtSubsidyAndTotalCost(double totalUnitsForAllApplianceItemsInList) {
         try {
             /*C:\Users\Rodney\Downloads\*/ /*ecg_tarriff_calculation.xlsx*/
@@ -187,76 +179,7 @@ public class TarriffMainCalculatorRenderer /*implements TarriffMainCalculator*/{
                 }//close HIGHEST_DIFFERENCE for Loop
             }
 
-            //Iterate through each rows from first sheet
-//            Iterator<Row> rowIterator = sheet.iterator();
-//
-//            for(int i =1; i <= HIGHEST_DIFFERENCE ; i++) {
-//                while (rowIterator.hasNext()) {
-//
-//                //    Row currentRow = rowIterator.next();
-//
-////                    System.out.println("cell value at 0 position ="+currentRow.getCell(i).getStringCellValue());
-////                    int totalUnitsForAllApplianceItemsInListTOSEARCHNOW = totalUnitsForAllApplianceItemsInList + i;
-////                    if (currentRow.getCell(i).getStringCellValue() == (String.valueOf(totalUnitsForAllApplianceItemsInListTOSEARCHNOW))) {
-////                        //subsidy cell is number 7
-////                        String govtSubsidyString = currentRow.getCell(7).getStringCellValue();
-////                        FINAL_GOVT_SUBSIDY_AMOUNT = Double.valueOf(govtSubsidyString);
-////                        String totalCostAmount = currentRow.getCell(8).getStringCellValue();
-////                        FINAL_TOTAL_COST_AMOUNT = Double.valueOf(totalCostAmount);
-////                        //found,thus exit loop
-////                        return ;
-////                    } else {
-////                        //not found
-////                        System.out.println("Couldn't find "+totalUnitsForAllApplianceItemsInListTOSEARCHNOW+"....will search for next by iterating ");
-////                    }
-//
-//
-//                }
 
-
-            int locationOfCellColumIndex = 0;
-//            for(int i =1; i <= HIGHEST_DIFFERENCE ; i++) {
-//                boolean foundStatus = false;
-//                Row unitsInWattsRow = sheet.getRow(0);
-//
-//                Iterator<Cell> cellIterator = unitsInWattsRow.cellIterator();
-//
-////                while (cellIterator.hasNext()) {
-////                    Cell currentCell = cellIterator.next();
-////
-////
-////                    System.out.println("current cell value="+currentCell.getStringCellValue());
-////
-////                    int totalUnitsForAllApplianceItemsInListTOSEARCHNOW = totalUnitsForAllApplianceItemsInList + i;
-////                    if (currentCell.getStringCellValue() == UNITS_KW_ROW_NAME) {
-////                        //found,so set status = true
-////                        foundStatus = true;
-////                        //subsidy cell is number 7
-////                        locationOfCellColumIndex = currentCell.getColumnIndex();
-////
-////                        //Iterator<Column> columnIterator = currentCell.
-////                        System.out.println("Found!!!column index =" + locationOfCellColumIndex);
-////                        //get out of loop
-////                        return;
-////                    } else {
-////                        //do nothing,check next
-////                    }
-////                }
-////
-////                if(foundStatus == true){
-////                    //get out of loop
-////                    Row govtSubsidyRow = sheet.getRow(7);
-////                    Cell cellSubsidy = govtSubsidyRow.getCell(locationOfCellColumIndex);
-////                    FINAL_GOVT_SUBSIDY_AMOUNT = Double.valueOf(cellSubsidy.getStringCellValue());
-////
-////                    Row totalCostDue = sheet.getRow(8);
-////                    Cell cellTotalCostDue = totalCostDue.getCell(locationOfCellColumIndex);
-////                    FINAL_TOTAL_COST_AMOUNT = Double.valueOf(cellTotalCostDue.getStringCellValue());
-////                    return;
-////                }else{
-////                   //continue loop
-////                }
-//            }
             file.close();
         }
 
